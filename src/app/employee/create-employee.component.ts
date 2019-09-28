@@ -97,7 +97,7 @@ export class CreateEmployeeComponent implements OnInit {
     this.employeeForm.setControl('skills', this.setExistingSkills(employee.skills));
   }
 
-
+// osama lul
   setExistingSkills(skillSets: ISkill[]): FormArray {
     const formArray = new FormArray([]);
     skillSets.forEach(s => {
