@@ -6,7 +6,7 @@ import { EmployeeService } from './employee.service';
 import { IEmployee } from './IEmployee';
 import { ISkill } from './ISkill';
 import { formArrayNameProvider } from '@angular/forms/src/directives/reactive_directives/form_group_name';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-create-employee',
   templateUrl: './create-employee.component.html',
@@ -15,6 +15,7 @@ import { formArrayNameProvider } from '@angular/forms/src/directives/reactive_di
 export class CreateEmployeeComponent implements OnInit {
 
   employeeForm: FormGroup;
+  employee: IEmployee;
   validationMessages = {
     fullName: {
       'required': 'Full name is required',
@@ -41,7 +42,7 @@ export class CreateEmployeeComponent implements OnInit {
 
   };
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private employeeService: EmployeeService) {
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private employeeService: EmployeeService, private router: Router) {
 
   }
   ngOnInit() {
@@ -78,7 +79,10 @@ export class CreateEmployeeComponent implements OnInit {
 
   getEmployee(id: number) {
     this.employeeService.getEmployee(id).subscribe(
-      (employee: IEmployee) => this.editEmployee(employee),
+      (employee: IEmployee) => {
+        this.editEmployee(employee);
+        this.employee = employee;
+      },
       (err: any) => console.log(err)
     );
   }
@@ -97,7 +101,7 @@ export class CreateEmployeeComponent implements OnInit {
     this.employeeForm.setControl('skills', this.setExistingSkills(employee.skills));
   }
 
-// osama lul
+  // osama lul
   setExistingSkills(skillSets: ISkill[]): FormArray {
     const formArray = new FormArray([]);
     skillSets.forEach(s => {
@@ -114,7 +118,10 @@ export class CreateEmployeeComponent implements OnInit {
 
 
   removeSkillButtonClick(skillGroupIndex: number): void {
-    (<FormArray>this.employeeForm.get('skills')).removeAt(skillGroupIndex);
+    const skillsFormArray = <FormArray>this.employeeForm.get('skills');
+    skillsFormArray.removeAt(skillGroupIndex);
+    skillsFormArray.markAsDirty();
+    skillsFormArray.markAsTouched();
   }
 
 
@@ -143,7 +150,7 @@ export class CreateEmployeeComponent implements OnInit {
 
     } else {
       phoneControl.clearValidators();
-      emailControl.setValidators(Validators.required);
+      emailControl.setValidators([Validators.required, CustomValidators.emailDomain('yahoo.com')]);
 
     }
     phoneControl.updateValueAndValidity();
@@ -218,7 +225,19 @@ export class CreateEmployeeComponent implements OnInit {
 
 
   onSubmit(): void {
-    console.log(this.employeeForm.value);
+    // console.log(this.employeeForm.value);
+    this.mapFormValuesToEmployeeModel();
+    this.employeeService.updateEmployee(this.employee).subscribe(
+      () => this.router.navigate(['list']),
+      (err: any) => console.log(err)
+    );
+  }
+  mapFormValuesToEmployeeModel() {
+    this.employee.fullName = this.employeeForm.value.fullName;
+    this.employee.contactPreference = this.employeeForm.value.contactPreference;
+    this.employee.email = this.employeeForm.value.emailGroup.email;
+    this.employee.phone = this.employeeForm.value.phone;
+    this.employee.skills = this.employeeForm.value.skills;
   }
 
 }
