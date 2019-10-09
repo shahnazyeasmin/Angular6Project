@@ -2,20 +2,25 @@
   "employees": [
     {
       "id": 1,
-      "fullName": "Markar",
+      "fullName": "emi",
       "contactPreference": "phone",
-      "email": "mark@yahoo.com",
-      "phone": "5641238971",
+      "email": "emigg@yahoo.com",
+      "phone": "11111111111",
       "skills": [
         {
-          "skillName": "C#",
-          "experienceInYears": "5",
-          "proficiency": "intermediate"
+          "skillName": "Photoshop",
+          "experienceInYears": "1",
+          "proficiency": "beginner"
         },
         {
-          "skillName": "Java",
-          "experienceInYears": "4",
-          "proficiency": "intermediate"
+          "skillName": "Illustrator",
+          "experienceInYears": "1",
+          "proficiency": "beginner"
+        },
+        {
+          "skillName": "Angular",
+          "experienceInYears": "1",
+          "proficiency": "beginner"
         }
       ]
     },
@@ -40,6 +45,30 @@
           "skillName": "LINQ",
           "experienceInYears": 3,
           "proficiency": "advanced"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "fullName": "osama",
+      "contactPreference": "email",
+      "email": "a@yahoo.com",
+      "phone": "33333333",
+      "skills": [
+        {
+          "skillName": "C#",
+          "experienceInYears": "2",
+          "proficiency": "intermediate"
+        },
+        {
+          "skillName": "Angular",
+          "experienceInYears": "1.5",
+          "proficiency": "intermediate"
+        },
+        {
+          "skillName": "HTML, CSS",
+          "experienceInYears": "2",
+          "proficiency": "intermediate"
         }
       ]
     }
