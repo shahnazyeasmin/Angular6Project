@@ -10,6 +10,8 @@ import { EmployeeService } from './employee/employee.service';
 import { HomeComponent } from './home.component';
 import { PageNotFoundComponent } from './page-not-found.component';
 import { EmployeeModule } from './employee/employee.module';
+import { PracticeModule } from './practice/practice.module';
+import { PracticeTest1Component } from './practice/practice-test1.component';
 
 
 @NgModule({
@@ -17,12 +19,14 @@ import { EmployeeModule } from './employee/employee.module';
     AppComponent,
 
     HomeComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    PracticeTest1Component
   ],
   imports: [
     BrowserModule,
     EmployeeModule,
     AppRoutingModule,
+    PracticeModule,
     HttpClientModule
 
   ],
